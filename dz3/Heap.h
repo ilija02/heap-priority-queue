@@ -7,6 +7,7 @@
 
 class Heap
 {
+	friend class PriorityQueue;
 private:
 	#pragma region FIELDS
 	int m;
@@ -35,13 +36,17 @@ private:
 	void heapify_up(int& steps);
 	#pragma endregion
 public:
+	Heap() = default;
 	Heap(int m);
+	Heap(const Heap&) = delete;
+	Heap& operator=(const Heap&) = delete;
 	//TODO add Copy, Move constructors and assignment operators
 	~Heap();
 	#pragma region methods
 	void add(int item, int& steps);
 	int peek() const;
 	int remove(int& steps);
+	int remove(int key, int& steps);
 	/// <summary>
 	/// Changes the degree of the m-ary heap
 	/// </summary>
@@ -50,6 +55,6 @@ public:
 	void merge(Heap& h, int& steps);
 	#pragma endregion
 	friend std::ostream& operator<<(std::ostream& os, Heap& h);
-	
+	int Size() const { return size; }
 };
 
