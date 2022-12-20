@@ -4,10 +4,8 @@
 #include "Heap.h"
 
 class PriorityQueue {
-	friend class Benchmark;
 private:
 	Heap h;
-	void changeOrder(int new_m) { h.convert(new_m); }
 public:
 	PriorityQueue(int m = 2) :h(m) {}
 	bool empty() { return h.size == 0; }
@@ -24,7 +22,7 @@ public:
 	void remove(int& steps) { h.remove(steps); }
 	int peek() { return h.peek(); }
 	void add(int item, int& steps) { h.add(item, steps); }
-	void load_from_file(const char* filename, int& steps);
+	void load_from_file(std::string& filename, int& steps);
 	void load_random(int count, int a, int b, int& steps);
 };
 

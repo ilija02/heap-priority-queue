@@ -155,11 +155,11 @@ void helpers::heapLoop() {
 void helpers::queueLoop(){
 	int selectedOption;
 	PriorityQueue pq;
-	while (selectedOption = getSelectedMenuOption(1)) {
+	while (selectedOption = getSelectedMenuOption(2)) {
 		switch (selectedOption) {
 		case 1: break;
 		case 2: {
-			std::cout << "\tRed " << (pq.empty() ? "je " : "nije ") << "prazan";
+			std::cout << "\tRed " << (pq.empty() ? "je " : "nije ") << "prazan\n";
 			break;
 		}
 		case 3: {
@@ -191,17 +191,36 @@ void helpers::queueLoop(){
 		}
 		case 6: {
 			std::string filename;
-
+			int steps;
+			bool flag = true;
+			while (flag) {
+				std::ifstream in;
+				std::cout << "\tIme (putanja) fajla: ";
+				std::cin >> filename;
+				in.open(filename);
+				if (!in) std::cout << "\033[1;31m\tGreska, fajl ne postoji\033[0m" << std::endl;
+				else flag = false;
+				in.close();
+			}
+			pq.load_from_file(filename, steps);
+			std::cout << "\tZa ucitavanje iz fajla je bilo potrebno " << steps << " koraka.\n";
 			break;
 		}
 		case 7: {
-			if (!nullCheckAndError(h)) continue;
-			std::cout << *h;
+			int count, a, b, steps;
+			std::cout << "\tBroj nasumicnih vrednosti: ";
+			std::cin >> count;
+			std::cout << "\tDonja granica vrednosti: ";
+			std::cin >> a;
+			std::cout << "\tGornja granica vrednosti: ";
+			std::cin >> b;
+			pq.load_random(count, a, b, steps);
+			std::cout << "\tZa ucitavanje je bilo potrebno " << steps << " koraka.\n";
 			break;
 		}
 		case 8: {
-			Benchmark b;
-			b.Run();
+			Benchmark::Run();
+			Benchmark::Print();
 			break;
 		}
 		default:
