@@ -32,17 +32,17 @@ int Heap::min_child_idx(int father_idx, int& steps)
 }
 
 int Heap::get_child(int father_idx, int child_nr){
-	if (!has_child(father_idx, child_nr)) throw "Illegal index";
+	if (!has_child(father_idx, child_nr)) throw std::string("Illegal index");
 	return items[get_child_idx(father_idx, child_nr)];
 }
 
 int Heap::get_parent(int child_idx){
-	if (!has_parent(child_idx)) throw "No father for node with index " + child_idx;
+	if (!has_parent(child_idx)) throw std::string("No father for node with index " + child_idx);
 	return items[get_parent_idx(child_idx)];
 }
 
 void Heap::resize_if_needed(){
-	if (size > capacity) throw "Illegal size";
+	if (size > capacity) throw std::string("Illegal size");
 	if (size == capacity) this->capacity = this->capacity * m;
 	else if (size < capacity / m) this->capacity = std::max(this->capacity / m, m);
 	int* old = this->items;
@@ -52,6 +52,7 @@ void Heap::resize_if_needed(){
 }
 
 void Heap::heapify_down(int& steps){
+	steps++;
 	int curr_idx = 0;
 	while (has_child(curr_idx, 1)) {
 		int min_idx = min_child_idx(curr_idx, steps);
@@ -59,10 +60,12 @@ void Heap::heapify_down(int& steps){
 		if (min > items[curr_idx]) break; //end the propagation 
 		std::swap(items[curr_idx], items[min_idx]);
 		curr_idx = min_idx;
+		steps += 1; // 1 swap, steps incremented additionally in min_child_idx
 	}
 }
 
 void Heap::heapify_up(int& steps){
+	steps++;
 	int curr_idx = this->size - 1;
 	while (has_parent(curr_idx) && get_parent(curr_idx) > items[curr_idx]) {
 		std::swap(items[get_parent_idx(curr_idx)], items[curr_idx]);
@@ -88,7 +91,7 @@ void Heap::add(int item, int& steps){
 }
 
 int Heap::peek() const{
-	if (size == 0) throw "Heap empty";
+	if (size == 0) throw std::string("Heap empty");
 	return items[0];
 }
 
@@ -100,6 +103,11 @@ int Heap::remove(int& steps){
 	heapify_down(steps);
 	resize_if_needed();
 	return item;
+}
+
+int Heap::remove(int key, int& steps)
+{
+	return 0;
 }
 
 void Heap::convert(int new_m){
@@ -144,7 +152,7 @@ std::ostream& operator<<(std::ostream& os, Heap& h){
 		int next_idx = prev_idx + pow(h.m, i);
 		for (int j = prev_idx; j < next_idx && j < h.size; j++) {
 			os << std::setw(2) << std::setfill('0') << h.items[j];
-			int offset = (h.m % 2 == 1 ? first_skip + 2 : 0);
+			int offset = (h.m >2 ? first_skip + 2 : 0);
 			for (int k = 0; k < in_between_skip-offset; k++) os << ' ';
 		}
 		os << "\n\n";
