@@ -2,7 +2,7 @@
 
 void Heap::init(int m)
 {
-	this->capacity = INITIAL_CAP_MULTIPLIER * m;
+	this->capacity = INITIAL_CAP;
 	this->m = m;
 	this->items = new int[capacity];
 }
@@ -10,7 +10,7 @@ void Heap::init(int m)
 void Heap::destroy(){
 	delete[]items;
 	size = 0;
-	capacity = m;
+	capacity = INITIAL_CAP;
 	items = nullptr;
 }
 
@@ -43,12 +43,16 @@ int Heap::get_parent(int child_idx){
 
 void Heap::resize_if_needed(){
 	if (size > capacity) throw std::string("Illegal size");
-	if (size == capacity) this->capacity = this->capacity * m;
-	else if (size < capacity / m) this->capacity = std::max(this->capacity / m, m);
-	int* old = this->items;
-	this->items = new int[this->capacity];
-	std::copy(old, old + this->size, this->items); //copy old aray into the new aray
-	delete[] old;
+	if (size == capacity) {
+		this->capacity = this->capacity * SCALE_FACTOR;
+
+		//else if (size < capacity / m) this->capacity = std::max(this->capacity / m, m);
+		int* old = this->items;
+		this->items = new int[this->capacity];
+		std::copy(old, old + this->size, this->items); //copy old aray into the new aray
+		//for (int i = 0; i < this->size; i++) this->items[i] = old[i];
+		delete[] old;
+	}
 }
 
 void Heap::heapify_down(int& steps){
@@ -96,6 +100,7 @@ int Heap::peek() const{
 }
 
 int Heap::remove(int& steps){
+	if (size == 0) throw std::string("Heap empty");
 	steps = 0;
 	int item = this->items[0];
 	this->items[0] = this->items[this->size - 1];

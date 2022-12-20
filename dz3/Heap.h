@@ -1,5 +1,6 @@
 #pragma once
-#define INITIAL_CAP_MULTIPLIER 3
+#define INITIAL_CAP 8
+#define SCALE_FACTOR 2
 #include <iostream>
 #include<cmath>
 #include<cstdio>
@@ -55,6 +56,5 @@ public:
 	void merge(Heap& h, int& steps);
 	#pragma endregion
 	friend std::ostream& operator<<(std::ostream& os, Heap& h);
-	int Size() const { return size; }
 };
 

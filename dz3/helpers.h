@@ -1,6 +1,6 @@
 #pragma once
 #include<iostream>
-#include "PriorityQueue.h"
+#include "Benchmark.h"
 
 namespace helpers {
 	int getSelectedMenuOption(int menu_nr);
