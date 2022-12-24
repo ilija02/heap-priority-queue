@@ -5,6 +5,7 @@ std::vector<int> Benchmark::m_arr = { 2,4,8 };
 std::vector<int> Benchmark::count_arr = { 100,1000,10000,100000 };
 std::vector<Benchmark::row> Benchmark::result;
 void Benchmark::Run() {
+	result.clear();
 	using namespace std::chrono;
 	for (int count : count_arr) {
 		for (int m : m_arr) {

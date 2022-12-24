@@ -33,7 +33,7 @@ private:
 	int get_child(int father_idx, int child_nr);
 	int get_parent(int child_idx);
 	void resize_if_needed();
-	void heapify_down(int& steps);
+	void heapify_down(int& steps, int start_idx);
 	void heapify_up(int& steps);
 	#pragma endregion
 public:
@@ -47,7 +47,7 @@ public:
 	void add(int item, int& steps);
 	int peek() const;
 	int remove(int& steps);
-	int remove(int key, int& steps);
+	void remove(int key, int& steps);
 	/// <summary>
 	/// Changes the degree of the m-ary heap
 	/// </summary>
