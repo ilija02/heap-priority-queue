@@ -19,6 +19,7 @@ int helpers::getSelectedMenuOption(int menu_nr)
 	6) Dodavanje jednog hipa drugom\n\
 	7) Ispis hipa\n\
 	8) Brisanje hipa\n\
+	9) Brisanje proizvoljnog kljuca\n\
 	0) Glavni meni\n";
 			std::cout << "-----------------------------------------------------------------------\n";
 			break;
@@ -130,9 +131,9 @@ void helpers::heapLoop() {
 			h2.add(19, steps);
 			h2.add(23, steps);
 			h2.add(2, steps);
-			std::cout << "\tDodavanje hipa h2: \n" << h2 << "hipu h: \n" << *h;
+			std::cout << "Dodavanje hipa h2: \n" << h2 << "hipu h: \n" << *h;
 			h->merge(h2, steps);
-			std::cout << "\tRezultujuci hip: \n" << *h;
+			std::cout << "Rezultujuci hip: \n" << *h;
 			break;
 		}
 		case 7: {
@@ -145,8 +146,22 @@ void helpers::heapLoop() {
 			h = nullptr;
 			break;
 		}
+		case 9: {
+			if (!nullCheckAndError(h)) continue;
+			int x, steps;
+			std::cout << "\tVrednost koja se brise: ";
+			std::cin >> x;
+			try {
+				h->remove(x, steps);
+				std::cout<<"\tZa brisanje je bilo potrebno : " << steps << " koraka.\n";
+			}
+			catch (std::string e) {
+				std::cout << e<<std::endl;
+			}
+			break;
+		}
 		default:
-			std::cout << "\033[1;31 Neispravan unos, pokusajte opet ili unesite 0 za kraj\033[0m\n";
+			std::cout << "Neispravan unos, pokusajte opet ili unesite 0 za kraj.\n";
 			break;
 		}
 	}
