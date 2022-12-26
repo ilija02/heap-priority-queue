@@ -31,7 +31,7 @@ void Benchmark::Run() {
 
 void Benchmark::Print() {
 	using namespace std;
-	cout << left << setw(12) << "Item count" << setw(3) << "M" <<
+	cout << setfill(' ') << left << setw(12) << "Item count" << setw(3) << "M" <<
 		setw(12) << "Ins. time" << setw(13) << "Ins. steps" << setw(12) << "Del. time" << setw(13) << "Del. steps" << std::endl;
 	cout << left << setw(13) << "---------" << setw(3) << "-" <<
 		setw(12) << "---------" << setw(13) << "----------" << setw(12) << "---------" << setw(13) << "----------" << std::endl;
