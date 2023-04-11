@@ -11,16 +11,16 @@ int helpers::getSelectedMenuOption(int menu_nr)
 "+---------------------------------------------------------------------+\n\
 |                                 Heap                                |\n\
 +---------------------------------------------------------------------+\n";
-			std::cout << "\t1) Stvaranje novog praznog hipa reda m\n\
-	2) Dodavanje elementa u hip\n\
-	3) Dohvatanje minimalnog elementa\n\
-	4) Brisanje minimalnog elementa\n\
-	5) Pretvaranje hipa u hip zadatkog novog reda\n\
-	6) Dodavanje jednog hipa drugom\n\
-	7) Ispis hipa\n\
-	8) Brisanje hipa\n\
-	9) Brisanje proizvoljnog kljuca\n\
-	0) Glavni meni\n";
+			std::cout << "\t1) New heap of order m\n\
+	2) Add new element\n\
+	3) Get min element\n\
+	4) Delete min element\n\
+	5) Change heap order\n\
+	6) Add one heap to another heap\n\
+	7) Print heap\n\
+	8) Delete heap\n\
+	9) Delete arbitrary key\n\
+	0) Main menu\n";
 			std::cout << "-----------------------------------------------------------------------\n";
 			break;
 	case 2:
@@ -28,18 +28,18 @@ int helpers::getSelectedMenuOption(int menu_nr)
 "+---------------------------------------------------------------------+\n\
 |                           Priority Queue                            |\n\
 +---------------------------------------------------------------------+\n";
-		std::cout << "\t1) Stvaranje novog praznog reda\n\
-	2) Ispitivanje da li je red prazan\n\
-	3) Dohvatanje prvog elementa\n\
-	4) Brisanje prvog elementa\n\
-	5) Dodavanje elementa\n\
-	6) Ucitavanje iz fajla\n\
-	7) Ucitavanje pomocu nasumicnih brojeva\n\
-	8) Merenje performansi\n\
-	0) Glavni meni\n";
+		std::cout << "\t1) New empty queue\n\
+	2) Test if queue is empty\n\
+	3) Get first element\n\
+	4) Delete first element\n\
+	5) Add new element\n\
+	6) Load from file\n\
+	7) Load using random numbers\n\
+	8) Benchmark\n\
+	0) Main menu\n";
 	}
 	
-	std::cout << "\033[1;33mUnos: \033[0m";
+	std::cout << "\033[1;33mInput: \033[0m";
 	std::cin >> selectedOption;
 	return selectedOption;
 
@@ -51,11 +51,11 @@ void helpers::mainLoop()
 	while (option!=0) {
 		std::cout <<
 "+---------------------------------------------------------------------+\n\
-|                               Glavni meni                           |\n\
+|                               Main menu                             |\n\
 +---------------------------------------------------------------------+\n\
 	1) Heap\n\
 	2) Priority Queue\n\
-	0) Izlaz\n";
+	0) Exit\n";
 		std::cout << "\033[1;33mUnos: \033[0m";
 		std::cin >> option;
 		switch (option) {
@@ -63,7 +63,7 @@ void helpers::mainLoop()
 		case 2: queueLoop(); break;
 		case 0: return;
 		default:
-			std::cout << "Greska, nepostojeca opcija.\n";
+			std::cout << "Error, invalid option.\n";
 		}
 	}
 }
@@ -80,7 +80,7 @@ void helpers::heapLoop() {
 		case 1: {
 			int m;
 			if (h) delete h;
-			std::cout << "\tRed hipa: ";
+			std::cout << "\tHeap order: ";
 			std::cin >> m;
 			h = new Heap(m);
 			break;
@@ -88,19 +88,19 @@ void helpers::heapLoop() {
 		case 2: {
 			if (!nullCheckAndError(h)) continue;
 			int x, steps=0;
-			std::cout << "\tElement koji se dodaje: ";
+			std::cout << "\tElement to add: ";
 			std::cin >> x;
 			h->add(x, steps);
-			std::cout << "\tZa dodavanje je bilo potrebno " << steps << " koraka.\n";
+			std::cout << "\tAdding took " << steps << " steps.\n";
 			break;
 		}
 		case 3: {
 			try {
 				if (!nullCheckAndError(h)) continue;
-				std::cout << "\t Minimalni element je: " << h->peek() << ".\n";
+				std::cout << "\t Minimal element is: " << h->peek() << ".\n";
 			}
 			catch (std::string ex){
-				std::cout << "\tGreska: " << ex << std::endl;
+				std::cout << "\Error: " << ex << std::endl;
 			}
 			break;
 		}
@@ -108,17 +108,17 @@ void helpers::heapLoop() {
 			if (!nullCheckAndError(h)) continue;
 			try {
 				int steps = 0;
-				std::cout << "\tMinimalni element je: " << h->remove(steps) << "; Za brisanje je bilo potrebno: " << steps << " koraka.\n";
+				std::cout << "\tMinimal element is: " << h->remove(steps) << "; Deletion took: " << steps << " steps.\n";
 			}
 			catch (std::string ex) {
-				std::cout << "\tGreska: " << ex<<std::endl;
+				std::cout << "\tError: " << ex<<std::endl;
 			}
 			break;
 		}
 		case 5: {
 			if (!nullCheckAndError(h)) continue;
 			int m;
-			std::cout << "\tNovi red hipa: ";
+			std::cout << "\tNew heap order: ";
 			std::cin >> m;
 			h->convert(m);
 			break;
@@ -131,9 +131,9 @@ void helpers::heapLoop() {
 			h2.add(19, steps);
 			h2.add(23, steps);
 			h2.add(2, steps);
-			std::cout << "Dodavanje hipa h2: \n" << h2 << "hipu h: \n" << *h;
+			std::cout << "Adding heap h2: \n" << h2 << "to heap h: \n" << *h;
 			h->merge(h2, steps);
-			std::cout << "Rezultujuci hip: \n" << *h;
+			std::cout << "Resulting heap: \n" << *h;
 			break;
 		}
 		case 7: {
@@ -149,11 +149,11 @@ void helpers::heapLoop() {
 		case 9: {
 			if (!nullCheckAndError(h)) continue;
 			int x, steps;
-			std::cout << "\tVrednost koja se brise: ";
+			std::cout << "\tValue to delete: ";
 			std::cin >> x;
 			try {
 				h->remove(x, steps);
-				std::cout<<"\tZa brisanje je bilo potrebno : " << steps << " koraka.\n";
+				std::cout<<"\tDeletion took: " << steps << " steps.\n";
 			}
 			catch (std::string e) {
 				std::cout << e<<std::endl;
@@ -161,7 +161,7 @@ void helpers::heapLoop() {
 			break;
 		}
 		default:
-			std::cout << "Neispravan unos, pokusajte opet ili unesite 0 za kraj.\n";
+			std::cout << "Invalid input, try again or enter 0 to exit.\n";
 			break;
 		}
 	}
@@ -174,34 +174,34 @@ void helpers::queueLoop(){
 		switch (selectedOption) {
 		case 1: break;
 		case 2: {
-			std::cout << "\tRed " << (pq.empty() ? "je " : "nije ") << "prazan\n";
+			std::cout << "\tQueue" << (pq.empty() ? "is " : "isn't ") << "empty\n";
 			break;
 		}
 		case 3: {
 			try {
-				std::cout << "\t Minimalni element je: " << pq.peek() << ".\n";
+				std::cout << "\t Minimal element is: " << pq.peek() << ".\n";
 			}
 			catch (std::string ex) {
-				std::cout << "\tGreska: " << ex << std::endl;
+				std::cout << "\t: " << ex << std::endl;
 			}
 			break;
 		}
 		case 4: {
 			try {
 				int steps = 0;
-				std::cout << "\tMinimalni element je: " << pq.poll(steps) << "; Za brisanje je bilo potrebno: " << steps << " koraka.\n";
+				std::cout << "\Minimal element is: " << pq.poll(steps) << "; Deletion took: " << steps << " koraka.\n";
 			}
 			catch (std::string ex) {
-				std::cout << "\tGreska: " << ex << std::endl;
+				std::cout << "\tError: " << ex << std::endl;
 			}
 			break;
 		}
 		case 5: {
 			int x, steps = 0;
-			std::cout << "\tElement koji se dodaje: ";
+			std::cout << "\tElement to add: ";
 			std::cin >> x;
 			pq.add(x, steps);
-			std::cout << "\tZa dodavanje je bilo potrebno " << steps << " koraka.\n";
+			std::cout << "\tAdding took " << steps << " steps.\n";
 			break;
 		}
 		case 6: {
@@ -210,27 +210,27 @@ void helpers::queueLoop(){
 			bool flag = true;
 			while (flag) {
 				std::ifstream in;
-				std::cout << "\tIme (putanja) fajla: ";
+				std::cout << "\tFilename (filepath): ";
 				std::cin >> filename;
 				in.open(filename);
-				if (!in) std::cout << "\033[1;31m\tGreska, fajl ne postoji\033[0m" << std::endl;
+				if (!in) std::cout << "\033[1;31m\tError, no such file\033[0m" << std::endl;
 				else flag = false;
 				in.close();
 			}
 			pq.load_from_file(filename, steps);
-			std::cout << "\tZa ucitavanje iz fajla je bilo potrebno " << steps << " koraka.\n";
+			std::cout << "\tLoading from file took " << steps << " steps.\n";
 			break;
 		}
 		case 7: {
 			int count, a, b, steps;
-			std::cout << "\tBroj nasumicnih vrednosti: ";
+			std::cout << "\tNumber of random values: ";
 			std::cin >> count;
-			std::cout << "\tDonja granica vrednosti: ";
+			std::cout << "\tLower bound: ";
 			std::cin >> a;
-			std::cout << "\tGornja granica vrednosti: ";
+			std::cout << "\tUpper bound: ";
 			std::cin >> b;
 			pq.load_random(count, a, b, steps);
-			std::cout << "\tZa ucitavanje je bilo potrebno " << steps << " koraka.\n";
+			std::cout << "\tLoading random values took " << steps << " steps.\n";
 			break;
 		}
 		case 8: {
@@ -239,7 +239,7 @@ void helpers::queueLoop(){
 			break;
 		}
 		default:
-			std::cout << "\033[1;31 Neispravan unos, pokusajte opet ili unesite 0 za kraj\033[0m\n";
+			std::cout << "\033[1;31 Invalid input, try again or enter 0 to exit\033[0m\n";
 			break;
 		}
 	}

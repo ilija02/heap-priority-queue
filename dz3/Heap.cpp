@@ -108,9 +108,9 @@ void Heap::heapify_down(int& steps, int start_idx = 0) {
 //		steps += 2; //1 comparison and 1 swap
 //	}
 //}
-void Heap::heapify_up(int& steps) {
+void Heap::heapify_up(int& steps, int start_idx=-1) {
 	steps++;
-	int curr_idx = this->size - 1;
+	int curr_idx = (start_idx==-1?this->size - 1:start_idx);
 	int parent_idx = (curr_idx - 1) / m;
 	while (curr_idx >= 0 && items[parent_idx] > items[curr_idx]) {
 		std::swap(items[parent_idx], items[curr_idx]);
@@ -164,7 +164,8 @@ void Heap::remove(int key, int& steps) {
 	if (index == -1) throw std::string("Nonexistent key");
 	this->items[index] = this->items[this->size - 1];
 	this->size--;
-	heapify_down(steps, index);
+	if (get_parent(index) > this->items[index]) heapify_up(steps, index);
+	else heapify_down(steps, index);
 	resize_if_needed();
 
 }

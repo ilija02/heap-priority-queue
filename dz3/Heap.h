@@ -34,7 +34,7 @@ private:
 	int get_parent(int child_idx);
 	void resize_if_needed();
 	void heapify_down(int& steps, int start_idx);
-	void heapify_up(int& steps);
+	void heapify_up(int& steps, int start_idx);
 	#pragma endregion
 public:
 	Heap() = default;
