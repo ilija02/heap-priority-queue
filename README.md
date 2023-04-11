@@ -1,29 +1,30 @@
 # Heap priority queue
-Implementation of a priority queue using binary heap data structure.
+Implementation of priority queue using binary heap data structure.
 
 This code was compiled on Windows 10 using Visual Studio 2022.
 In order to test the basic capabilites of the implementation, main.cpp was provided which tests the basic functionality.
 
 # Available features
 Available actions for the heap are:
-        1) New heap of order m
-        2) Add new element
-        3) Get min element
-        4) Delete min element
-        5) Change heap order
-        6) Add one heap to another heap
-        7) Print heap
-        8) Delete heap
-        9) Delete arbitrary key
+1) New heap of order m
+2) Add new element
+3) Get min element
+4) Delete min element
+5) Change heap order
+6) Add one heap to another heap
+7) Print heap
+8) Delete heap
+9) Delete arbitrary key
+
 Available actions for the priority queue are:
-        1) New empty queue
-        2) Test if queue is empty
-        3) Get first element
-        4) Delete first element
-        5) Add new element
-        6) Load from file
-        7) Load using random numbers
-        8) Benchmark
+1) New empty queue
+2) Test if queue is empty
+3) Get first element
+4) Delete first element
+5) Add new element
+6) Load from file
+7) Load using random numbers
+8) Benchmark
 
 # Performance
 The following is a performance benchmark of the given implementation. It was tested using the Benchmark.cpp class.
